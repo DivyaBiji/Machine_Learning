@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Superstore Dashboard</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <h1>Superstore Dashboard</h1>
+  
+  <div>
+    <h2>Sales and Profit by Category/Region</h2>
+    <div id="plot"></div>
+  </div>
+  
+  <div>
+    <h2>Top 10 Cities by Profit</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>City</th>
+          <th>Profit</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in data.city_data %}
+        <tr>
+          <td>{{ row[0] }}</td>
+          <td>{{ row[1] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+  <div>
+    <h2>Top 10 Products by Sales</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Sales</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in data.product_data %}
+        <tr>
+          <td>{{ row[0] }}</td>
+          <td>{{ row[1] }}</td>
+          <td>{{ row[2] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+  <script>
+    var plot_data = {{ graphJSON | safe }};
+    Plotly.newPlot('plot', plot_data.data, plot_data.layout);
+  </script>
+</body>
+</html>
